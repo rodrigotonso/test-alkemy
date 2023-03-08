@@ -1,10 +1,12 @@
-import './App.css';
-
+import "./App.css";
+import Button from "./Button/Button";
 function App() {
-  return (
-    <div className="App">hola
-    </div>
-  );
+    const action = ()=>console.log('action')
+    return (
+        <div className="App">
+            <Button  onClickAction={action}/>
+        </div>
+    );
 }
 
 export default App;
