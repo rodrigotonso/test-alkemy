@@ -1,32 +1,33 @@
-import React, { useState } from "react";
-import { authLogin, getMyInfo } from "../../services/auth";
+import React, { useEffect, useState } from "react";
+import { authLogin } from "../../services/auth";
+import { useForm } from "react-hook-form";
 
 const FormLogin = () => {
-    const [formData, setFormData] = useState({});
-
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const accessToken = await authLogin(formData);
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm();
+    const emailWatch = watch('email') === 'hola';
+    
+    useEffect(()=>{
+        console.log('PASAS DE UNA')
+    },[emailWatch])
+    
+    const onSubmit = async (data) => {
+        const accessToken = await authLogin(data);
         localStorage.setItem("token", accessToken);
-        console.log('TODO OK')
     };
 
     return (
-        <form
-            onSubmit={(e) => {
-                handleSubmit(e);
-            }}
-            id="form"
-        >
-            <input name={"email"} onChange={(e) => handleChange(e)} />
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <input name="email" {...register("email", { required: true })} />
+            {errors?.email && <p>SOY REQUERIDO</p>}
             <input
                 type="password"
                 name={"password"}
-                onChange={(e) => handleChange(e)}
+                {...register("password")}
             />
             <button type="submit">Envíar</button>
         </form>
