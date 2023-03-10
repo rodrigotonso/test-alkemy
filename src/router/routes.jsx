@@ -1,18 +1,32 @@
-import { createBrowserRouter } from "react-router-dom";
-import { Login, Home, Register } from "../pages";
+/* this file is ignored in .prettierIgnore */
+import { createBrowserRouter, Outlet, Navigate } from "react-router-dom";
+import { Login, Home, Register, Shop } from "../pages";
 
+const isLoggedIn = localStorage.getItem("token");
+const isAdmin = false
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Home />,
+        element: isLoggedIn ? <Outlet /> : <Navigate to={'login'} />,
+        children: [
+            { path: "/shop", element: <Shop /> },
+            { path: "/", element: <Home /> },
+            { 
+                path: "/", 
+                element: isAdmin ? <Outlet /> : <Navigate to={'login'} />,
+                children:[
+                    { path: "/admin", element: <Register /> },
+        ],
+            },
+        ],
     },
-    {
-        path: "/login",
-        element: <Login />,
-    },
-    {
-        path: "/register",
-        element: <Register />,
+    { 
+        path: "/", 
+        element: !isLoggedIn ? <Outlet /> : <Navigate to={'/'} />,
+        children: [
+            { path: "/login", element: <Login /> },
+            { path: "/register", element: <Register /> },
+        ],
     },
 ]);
 

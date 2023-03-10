@@ -12,6 +12,7 @@ const FormLogin = () => {
         e.preventDefault();
         const accessToken = await authLogin(formData);
         localStorage.setItem("token", accessToken);
+        console.log('TODO OK')
     };
 
     return (
