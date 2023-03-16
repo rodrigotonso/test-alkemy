@@ -3,9 +3,11 @@ import Form from "../Form/Form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchema } from "./validationSchema";
 import FormContent from "./FormContent";
+import { useNavigate } from "react-router-dom";
 
 const FormRegister = () => {
-    const onSubmit = (data) => console.log(data);
+const navigate = useNavigate()
+    const onSubmit = (data) => navigate('/',{state:{...data}});
     return (
         <Form
             onSubmit={(data) => onSubmit(data)}
