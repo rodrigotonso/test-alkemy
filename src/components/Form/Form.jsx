@@ -7,6 +7,7 @@ const Form = ({ children, onSubmit, resolver }) => {
     const onError = (error) => {
         console.log(error);
     };
+    
     return (
         <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit, onError)}>

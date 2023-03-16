@@ -7,7 +7,7 @@ const isAdmin = false
 const router = createBrowserRouter([
     {
         path: "/",
-        element: isLoggedIn ? <Outlet /> : <Navigate to={'login'} />,
+        element: isLoggedIn ? <Outlet /> :  <Outlet />,
         children: [
             { path: "/shop", element: <Shop /> },
             { path: "/", element: <Home /> },
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     },
     { 
         path: "/", 
-        element: !isLoggedIn ? <Outlet /> : <Navigate to={'/'} />,
+        element: !isLoggedIn ? <Outlet /> : <Outlet />,
         children: [
             { path: "/login", element: <Login /> },
             { path: "/register", element: <Register /> },
